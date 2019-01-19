@@ -1,6 +1,6 @@
 module.exports = { 
   apps: [{
-    name    : "NinjaAssignment",
+    name    : "IFADashboardWeb",
     script  : "npm",
     args    : "start"
   }]
