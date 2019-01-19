@@ -8,10 +8,10 @@ class Header extends Component{
      
      
      return ( 
-    
+    <div style={{background:"#8888ff"}}>
       
      <b>Welcome {this.props.agentname}. Your Advisor Id is {this.props.agentno}</b>
-    
+    </div>
     );
      
      

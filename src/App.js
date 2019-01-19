@@ -65,7 +65,7 @@ class App extends Component {
            
         
         <div>
-        <div style={{background:"#bb88ff"}}>
+        <div style={{background:"#8888ff"}}>
          <button style={{ marginRight: "5px"}} className="btn btn-secondary btn-sm" onClick={() => this.buttonClick({"status":"Inforce"})}> GetInforce </button> 
          
          <button style={{ marginRight: "5px"}} className="btn btn-secondary btn-sm" onClick={() => this.buttonClick({"firm":this.state.policies[0].firm})}> Firm Policies </button>
@@ -156,40 +156,30 @@ class App extends Component {
 
           console.log(userObj["login"]);
 
-          // let res = fetch('http://localhost:3002/api/validateLogin', {
-          //   method: 'post',
-          //   body: JSON.stringify(userObj),
-          //   headers: {Accept: "application/json", 'Content-Type' : 'application/json','Access-Control-Allow-Origin': '*'}
-          //  }).then(response => {return response.json();}).then(data => this.setState({_isLoggedIn : true, agentno : userObj["login"]}));   //
-
-          let res = fetch('http://localhost:3002/api/validateLogin', {
+         let res = fetch('http://localhost:3002/api/validateLogin', {
             method: 'post',
             body: JSON.stringify(userObj),
             headers: {Accept: "application/json", 'Content-Type' : 'application/json','Access-Control-Allow-Origin': '*'}
            }).then(response => {return response.json();}).then( (data) => this.fetchresults(data));
-           
-          //  onClick={() => this.buttonClick({"status":"Inforce"})}
-
-          //  data => this.setState({_isLoggedIn : true, agentno : userObj["login"]})
-
-      //      fetch('http://localhost:3002/api/fetchIFADetails', {
-      //  method: 'post',
-      //  body: JSON.stringify({"agentno":this.state.agentno}),
-      //  headers: {Accept: "application/json", 'Content-Type' : 'application/json','Access-Control-Allow-Origin': '*'}
-      // }).then(response => {return response.json();}).then(data => this.setState({'policies' : data}));   //
-
 
     }; 
 
     fetchresults(param)
     {
       console.log("inside fetch results",param);
+      if(param["agentno"] == null) 
+      {
+            alert("user id / password incorrect !!");
+            //document.getElementById("")
+      }
+      else
+      {
       let res = fetch('http://localhost:3002/api/fetchIFADetails', {
         method: 'post',
         body: JSON.stringify(param),
         headers: {Accept: "application/json", 'Content-Type' : 'application/json','Access-Control-Allow-Origin': '*'}
-       }).then(response => {return response.json();}).then( data =>  this.setState({'policies' : data,'_isLoggedIn':true,'agentno':param["agentno"]}));   //
-
+       }).then(response => {return response.json();}).then( data =>  this.setState({'policies' : data,'_isLoggedIn':true,'agentno':param["agentno"]})); 
+      }
     }
 
     invokeLogout = (e) =>
