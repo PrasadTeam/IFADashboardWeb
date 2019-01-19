@@ -12,7 +12,7 @@ class IFADashBoard extends Component
    return (
               <div>
                     {this.renderPolicies()}
-                    {this.props.policies.length === 0 && "Please Create New Policies"}
+                    {this.props.policies.length === 0 && "Please  Create New Policies"}
               </div> 
           );
    }
