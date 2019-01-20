@@ -22,7 +22,7 @@ class Login extends Component
                </td>
 
                <td style={{paddingLeft: "10px"}}>
-               <input type="submit" name="login" value="Log In" id="Login Id" />
+               <input type="submit" name="login" value="Log In" id="Login  Id" />
                </td>
            </tr>
 
