@@ -14,13 +14,14 @@ class Login extends Component
            
            <tr>
                <td>
-                 <TextFieldControl type="text" name="userid" value="" />
+                 <TextFieldControl type="text" name="userid" label="User Id" value="" />
                </td>
 
                <td>
-                 <TextFieldControl type="password" name="password" value="" />
+                 <TextFieldControl type="password" name="password" label="Password" value="" />
                </td>
-               <td >
+
+               <td style={{paddingLeft: "10px"}}>
                <input type="submit" name="login" value="Log In" id="Login Id" />
                </td>
            </tr>

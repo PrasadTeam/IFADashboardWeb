@@ -12,7 +12,7 @@ class IFADashBoard extends Component
    return (
               <div>
                     {this.renderPolicies()}
-                    {this.props.policies.length === 0 && "Please  Create New Policies"}
+                    {this.props.policies.length === 0 && "Please Create New Policies"}
               </div> 
           );
    }
@@ -25,7 +25,7 @@ class IFADashBoard extends Component
     if(this.props.policies.length === 0) return <p>No Policies available !!</p>;
        return (
     <div>
-        <div className="row" style={{border: "0.1rem outset grey",font: "bold 1rem sans-serif"}}> 
+        <div className="row" style={{borderBottom: "0.1rem outset blue",backgroundColor:"#0f88f0",font: "bold 1rem sans-serif"}}> 
             <div className="col-md-2">Policy Number </div>
             <div className="col-md-2">First Name </div>
             <div className="col-md-2">Last Name </div>

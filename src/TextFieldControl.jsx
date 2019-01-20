@@ -4,15 +4,16 @@ import ReactDOM from 'react-dom';
 class TextFieldControl extends Component
 {
 
-   state = { name:'', value:'',_number:0 };
+   state = { name:'', value:''};
 
    constructor(props)
    {
      super(props);      
 
-     console.log("inside TF constructor:"+this.props.value);
      this.state.name = this.props.name;
      this.state.value = this.props.value;
+     this.state.label = this.props.label;
+     this.state.type = this.props.type;
    }
    
    onNameChange = (evt) =>
@@ -24,12 +25,13 @@ class TextFieldControl extends Component
    
    return (
    <react-fragment>
-        <span>{this.state.name}</span>
+        <span style={{marginLeft:"10px",marginRight:"2px", fontSize:"small"}}>{this.state.label}:</span>
         <input placeholder={this.state.value} 
         name={this.state.name} 
+        type={this.state.type}
         value={this.state.value} 
         onChange={this.onNameChange} /> 
-        {/* <br></br> */}
+        
    </react-fragment> 
     );
    }

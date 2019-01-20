@@ -9,19 +9,21 @@ class Logout extends Component
       return (
     <form onSubmit={this.props.invokeLogout}> 
     
-    <table style={{cellspacing:"0"}} role="presentation">
+    <input type="submit" name="logout" value="Logout" id="Logout" />
+
+    {/* <table style={{cellspacing:"0"}} >
       <tbody>
            
            <tr>
                <td >
-               <input type="submit" name="logout" value="Logout" id="Logout" />
+               
                </td>
            </tr>
 
       </tbody>
 
 
-    </table>
+    </table> */}
     </form>
     );
     }

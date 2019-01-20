@@ -4,6 +4,9 @@ import Header from './Header.jsx';
 import Login from "./login.jsx";
 import Logout from "./logout.jsx";
 import TextFieldControl from './TextFieldControl';
+
+//http://35.176.228.164:3002
+
 class App extends Component {
 
   state = { 
@@ -19,34 +22,20 @@ class App extends Component {
 
   render()
   {
-       if(!this.state._isLoggedIn)
+    if(!this.state._isLoggedIn)
        return this.renderLogin(); 
 
-       return this.renderApp();
-
+    return this.renderApp();
   }
   
 
   renderLogin() {
 
     return (
-
-    //   <Router> 
-    //     <Switch>
-    //   <Route path="/" exact render={()=><Login num="2" someProp={100}/>}  />
-    //   {/* <Route path="/dashboard" component={IFADashBoard}  /> */}
-    //    <Route path="/IFA" component={Sample}/>  
-    //   </Switch>
-    //  </Router>
-
-        <div style={{background:"#0f0f0f"}}>
-
-        <div style={{ height:"40px",minwidth:"980px",background:"#0f00ff"}}>
+        <div style={{ height:"40px",width:"600px",background:"#0f88ff"}}>
         
         <div><Login invokeLogin={this.invokeLogin}/></div>
         </div>
-        </div>   
-        
         
     );
   }
@@ -56,31 +45,41 @@ class App extends Component {
      return (
 
     
-        <div style={{background:"#0f0f0f"}}>
-
-        <div style={{ height:"82px",minwidth:"980px",background:"#0f00ff"}}><Header agentno={this.state.agentno} agentname="Prasad"/>
-        
-        <div style={{align:"right"}}><Logout invokeLogout={this.invokeLogout}/></div>
+      <div>
+       
+        <div style={{ height:"32px",maxwidth:"400px",background:"#f0f0f0", borderBottom:"0.1rem outset blue", borderBottomColor:"#0000ff" }}>
+        <Header agentno={this.state.agentno} agentname={this.state.agentname} invokeLogout={this.invokeLogout} />
         </div>
-           
         
-        <div>
-        <div style={{background:"#8888ff"}}>
-         <button style={{ marginRight: "5px"}} className="btn btn-secondary btn-sm" onClick={() => this.buttonClick({"status":"Inforce"})}> GetInforce </button> 
+        
+        
+        <div style={{ paddingTop:"2px", paddingBottom:"2px", borderBottom:"0.1rem outset blue 20px", borderBottomColor:"#0000dd"}}>
+        
+        
+         <b style={{paddingTop:"0px", paddingLeft:"1px", paddingBottom:"20px",fontSize:"small"}}>Search Panel</b> 
+         <hr></hr>
          
-         <button style={{ marginRight: "5px"}} className="btn btn-secondary btn-sm" onClick={() => this.buttonClick({"firm":this.state.policies[0].firm})}> Firm Policies </button>
-         
+         <button style={{ marginLeft: "0px", marginRight: "125px"}} className="btn btn-secondary btn-sm" onClick={() => this.buttonClick({"status":"Inforce"})}> GetInforce </button> 
+         <button style={{ marginRight: "125px"}} className="btn btn-secondary btn-sm" onClick={() => this.buttonClick({"firm":this.state.policies[0].firm})}> Firm Policies </button>
          <button style={{ marginRight: "5px"}} className="btn btn-secondary btn-sm" onClick={() => this.buttonClick({"agentno":this.state.agentno})}> My Policies </button>
+         
+         <hr></hr>
          <form onSubmit= { this.buttonDateRangeClick}>     
-         <TextFieldControl name="NBFrom" value="" />
-         <TextFieldControl name="NBTo" value="" />
-         <input type="submit" value="Search" style={{ marginRight: "5px"}} className="btn btn-secondary btn-sm" /> 
+         
+         <TextFieldControl label="NB From" name="NBFrom" value="" type="text" />
+         <TextFieldControl label="NB To" name="NBTo" value="" type="text" />
+         <input type="submit" value="Search" style={{ marginLeft: "5px"}} className="btn btn-secondary btn-sm" /> 
          </form>
+        
+
+        
         </div>
 
-        <p></p>  
-        <div style={{background:"#8888ff"}}><IFADashBoard agentno={this.state.agentno} policies={this.state.policies}/></div>
-         </div>
+        <hr></hr> 
+        
+        <div style={{background:"#f0f0f0"}}><IFADashBoard agentno={this.state.agentno} policies={this.state.policies}/></div>
+      
+        
       </div>
       
     );
@@ -91,19 +90,18 @@ class App extends Component {
 
     event.preventDefault();  
     console.log("inforce date range ..!!");
+
     
+
     let param = {
-      "fromDate":event.target.NBFrom.value,"toDate":event.target.NBTo.value};
+      "fromDate":event.target.NBFrom.value,"toDate":event.target.NBTo.value
+    };
 
-      this.setState({'policies' : this.state.policies.filter(policy => (policy.nbdate > param["fromDate"] && policy.nbdate < param["toDate"]))});
-      
+    let fromDate = new Date(param["fromDate"]);
+    let toDate = new Date(param["toDate"]);
 
-     console.log(JSON.stringify(param));  
+    this.setState({'policies' : this.state.policies.filter(policy => (new Date(policy.nbdate) > fromDate && new Date(policy.nbdate) < toDate))});
   };
-
-  
-
-  
 
 
   componentDidMount()
@@ -119,11 +117,7 @@ class App extends Component {
   }
 
   buttonClick = (matchparam) =>{
-    //set status is not working???
-    // this.setState({status : matchparam} );
-
-    // matchparam['agentno'] = this.props.agentno;
-
+    
     console.log(JSON.stringify(matchparam));
 
      if(matchparam["status"] != null) 
@@ -154,27 +148,30 @@ class App extends Component {
             password:e.target.password.value
           };
 
-          console.log(userObj["login"]);
+          let loginName = userObj["login"];
 
          let res = fetch('http://35.176.228.164:3002/api/validateLogin', {
             method: 'post',
             body: JSON.stringify(userObj),
             headers: {Accept: "application/json", 'Content-Type' : 'application/json','Access-Control-Allow-Origin': '*'}
-           }).then(response => {return response.json();}).then( (data) => this.fetchresults(data));
+           }).then(response => {return response.json();}).then( (data) => {this.fetchresults(data,loginName)});
 
     }; 
 
-    fetchresults(param)
+    fetchresults(param,loginName)
     {
-      console.log("inside fetch results",param);
+      console.log("inside fetch results",param,loginName);
+
+      this.state.agentname = loginName;
+
       if(param["agentno"] == null) 
       {
-            alert("user id /  password incorrect !!");
+            alert("user id / password incorrect !!");
             //document.getElementById("")
       }
       else
       {
-      let res = fetch('http://35.176.228.164:3002/api/fetchIFADetails', {
+      let res = fetch('http://localhost:3002/api/fetchIFADetails', {
         method: 'post',
         body: JSON.stringify(param),
         headers: {Accept: "application/json", 'Content-Type' : 'application/json','Access-Control-Allow-Origin': '*'}

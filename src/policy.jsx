@@ -14,7 +14,7 @@ class Policy extends Component{
        return (
 
         <div>
-        <div className="row" key={this.props.policy.id}> 
+        <div className="row" style={{borderBottom: "0.1rem outset lightblue",backgroundColor:"#f0f0f0"}} key={this.props.policy.id}> 
                 <div className="col-md-2"> {this.props.policy.polno}  </div>
                 <div className="col-md-2"> {this.props.policy.firstname} </div>
                 <div className="col-md-2"> {this.props.policy.surname} </div>
@@ -24,9 +24,6 @@ class Policy extends Component{
                 
                 {this.renderDetails()}             
         </div>
-        
-        
-
         </div>
 
         );
@@ -48,17 +45,18 @@ class Policy extends Component{
     renderDetails()
     {
          if(this.state._showFulldetails) 
-         return <div className="col-md-4" >  <button onClick={() => this.handleToggle()} className="btn btn-secondary btn-sm">Click here for Details</button></div>
+         return <div className="col-md-4" >  <button onClick={() => this.handleToggle()} className="btn btn-secondary btn-sm">Show Details</button></div>
          
          
          return (
-         <div className="col-md-7" >
-                           <p></p>
-                           
-                           <b>Policy Details </b> <br></br>
-                           Product Type: {this.props.policy.prodtyp}  <br></br>
-                           Policy Type: Type: {this.props.policy.policytyp} 
+         <div className="col-md-7" style={{fontSize:"small"}} >
+                           <b> Policy Details  </b>
+                           <ul>
+                           <li>Product Type: {this.props.policy.prodtyp}</li>
+                           <li>Policy Type: {this.props.policy.policytyp} </li>
+                           </ul>
                            <div className="col-md-4" >  <button onClick={() => this.handleToggle()} className="btn btn-secondary btn-sm">Hide Details</button></div>           
+                           <p></p>
           </div>           
         
                  );          
