@@ -107,13 +107,14 @@ class App extends Component {
   componentDidMount()
   {
     //  console.log("componenet did mount in App.js");
-
+     if(!this.state._isLoggedIn)
+    {
      let res = fetch('http://35.176.228.164:3002/api/fetchIFADetails', {
        method: 'post',
        body: JSON.stringify({'agentno' : this.state.agentno}),
        headers: {Accept: "application/json", 'Content-Type' : 'application/json','Access-Control-Allow-Origin': '*'}
       }).then(response => {return response.json();}).then(data => this.setState({'policies' : data}));   
-
+    }
   }
 
   buttonClick = (matchparam) =>{
@@ -154,7 +155,9 @@ class App extends Component {
             method: 'post',
             body: JSON.stringify(userObj),
             headers: {Accept: "application/json", 'Content-Type' : 'application/json','Access-Control-Allow-Origin': '*'}
-           }).then(response => {return response.json();}).then( (data) => {this.fetchresults(data,loginName)});
+           }).then(response => {return response.json();}).then( (data) => {this.fetchresults(data,loginName)}).catch(function(error) {
+            console.log(error);
+        });
 
     }; 
 
@@ -180,7 +183,7 @@ class App extends Component {
     }
 
     invokeLogout = (e) =>
-    {http://35.176.228.164:3002
+    {
           e.preventDefault();
   
           let tempState = { 
