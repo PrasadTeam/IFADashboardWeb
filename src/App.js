@@ -171,7 +171,7 @@ class App extends Component {
       }
       else
       {
-      let res = fetch('http://localhost:3002/api/fetchIFADetails', {
+      let res = fetch('http://35.176.228.164:3002/api/fetchIFADetails', {
         method: 'post',
         body: JSON.stringify(param),
         headers: {Accept: "application/json", 'Content-Type' : 'application/json','Access-Control-Allow-Origin': '*'}
@@ -180,7 +180,7 @@ class App extends Component {
     }
 
     invokeLogout = (e) =>
-    {
+    {http://35.176.228.164:3002
           e.preventDefault();
   
           let tempState = { 
