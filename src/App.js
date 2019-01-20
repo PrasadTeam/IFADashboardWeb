@@ -169,7 +169,7 @@ class App extends Component {
       console.log("inside fetch results",param);
       if(param["agentno"] == null) 
       {
-            alert("user id / password incorrect !!");
+            alert("user id /  password incorrect !!");
             //document.getElementById("")
       }
       else
