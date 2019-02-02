@@ -49,7 +49,7 @@ class Policy extends Component{
          
          
          return (
-         <div className="col-md-7" style={{fontSize:"small"}} >
+         <div className="col-md-8" style={{fontSize:"small"}} >
                            <b> Policy Details  </b>
                            <ul>
                            <li>Product Type: {this.props.policy.prodtyp}</li>
