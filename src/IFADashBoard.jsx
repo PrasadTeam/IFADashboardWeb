@@ -27,7 +27,7 @@ class IFADashBoard extends Component
     <div>
         <div className="row" style={{borderBottom: "0.1rem outset blue",backgroundColor:"#0f88f0",font: "bold 1rem sans-serif"}}> 
             <div className="col-md-2">Policy Number </div>
-            <div className="col-md-2">First Name </div>
+            <div className="col-md-2">First name </div>
             <div className="col-md-2">Last Name </div>
             <div className="col-md-2">DOB </div>
             <div className="col-md-2">NB Date </div>
